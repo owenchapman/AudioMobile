@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>92866819-9F97-4036-974D-DEBDFAEEC318</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Audio-Mobile</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>F1F1ED70-CFF8-4EE3-9264-73BEAD21FC1D</key>
+		<string>svn+ssh://netfunctional.ca/home/netfunctional/nfdev/Audio-Mobile</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Audio-Mobile.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>F1F1ED70-CFF8-4EE3-9264-73BEAD21FC1D</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectRepositoryRootDictionary</key>
+	<dict>
+		<key>F1F1ED70-CFF8-4EE3-9264-73BEAD21FC1D</key>
+		<string>svn+ssh://netfunctional.ca/home/netfunctional/nfdev</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>svn+ssh://netfunctional.ca/home/netfunctional/nfdev/Audio-Mobile/Audio-Mobile.xcodeproj</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>F1F1ED70-CFF8-4EE3-9264-73BEAD21FC1D</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.subversion</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>F1F1ED70-CFF8-4EE3-9264-73BEAD21FC1D</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Audio-Mobile</string>
+		</dict>
+	</array>
+</dict>
+</plist>
