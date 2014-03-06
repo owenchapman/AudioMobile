@@ -949,8 +949,8 @@
 		2EFDFBEF17EF7EDA001DF095 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Michael Matan (SV6HC3QDJX)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Michael Matan (SV6HC3QDJX)";
+				CODE_SIGN_IDENTITY = "iPhone Distribution: Owen Chapman (PTNQ4QQ36U)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Owen Chapman (PTNQ4QQ36U)";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Audio-Mobile/frameworks\"",
@@ -959,8 +959,8 @@
 				GCC_PREFIX_HEADER = "Audio-Mobile/Audio-Mobile-Prefix.pch";
 				INFOPLIST_FILE = "Audio-Mobile/Audio-Mobile-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "15A6FFDF-7B1A-44B0-BC07-E423C9BB1ACF";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "15A6FFDF-7B1A-44B0-BC07-E423C9BB1ACF";
+				PROVISIONING_PROFILE = "1B81C0C7-6F5C-4535-82BD-DE8A48207604";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "1B81C0C7-6F5C-4535-82BD-DE8A48207604";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -978,7 +978,7 @@
 				GCC_PREFIX_HEADER = "Audio-Mobile/Audio-Mobile-Prefix.pch";
 				INFOPLIST_FILE = "Audio-Mobile/Audio-Mobile-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "15A6FFDF-7B1A-44B0-BC07-E423C9BB1ACF";
+				PROVISIONING_PROFILE = "1B81C0C7-6F5C-4535-82BD-DE8A48207604";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
