@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>19F50C2D-A3D4-43DF-838A-F24D375A0C18</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Audio-Mobile</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>EFF5B512-325A-485C-84BF-0283DEC50A1F</key>
+		<string>https://github.com/owenchapman/AudioMobile.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Audio-Mobile.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>EFF5B512-325A-485C-84BF-0283DEC50A1F</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/owenchapman/AudioMobile.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>EFF5B512-325A-485C-84BF-0283DEC50A1F</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>EFF5B512-325A-485C-84BF-0283DEC50A1F</string>
+			<key>IDESourceControlWCCName</key>
+			<string>AudioMobile</string>
+		</dict>
+	</array>
+</dict>
+</plist>
