@@ -87,17 +87,24 @@ bool doLog = false;
     //first upload the two files
     //first upload the image, because it's probably the smaller of the two files and we'd prefer to fail sooner rather than later if there is a generic problem with file uploads
     error = nil;
-    NSDictionary* imageFileInfo = [self uploadFile:image withName:imageFileName error:error];
+//    [[image pathComponents] objectAtIndex:[[image pathComponents] count]-1];
+    
+    NSString* titledImageFileName = [title stringByAppendingString:[NSString stringWithFormat:@".%@",[image pathExtension]]];
+    NSDictionary* imageFileInfo = [self uploadFile:image withName:titledImageFileName error:error];
     if (error) {
         NSLog(@"Failed to upload image file for node due to error: %@",*error);
         if (responder) [responder uploadCompletedWithResult:AMUPLOADFAIL];
         return;
     }
 
+    
+    
+    NSString* titledAudioFileName = [title stringByAppendingString:[NSString stringWithFormat:@".%@",[audio pathExtension]]];
+    
     NSString* audioFileName = [[audio pathComponents] objectAtIndex:[[audio pathComponents] count]-1];
     //then upload the audio file
     error = nil;
-    NSDictionary* audioFileInfo = [self uploadFile:audio withName:audioFileName error:error];
+    NSDictionary* audioFileInfo = [self uploadFile:audio withName:titledAudioFileName error:error];
     if (error) {
         NSLog(@"Failed to upload audio file for node due to error: %@",*error);
         if (responder) [responder uploadCompletedWithResult:AMUPLOADFAIL];
