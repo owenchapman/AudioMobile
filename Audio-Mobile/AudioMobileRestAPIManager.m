@@ -152,7 +152,7 @@ bool doLog = false;
 
 //    subsequentLocationsPostValue appendFormat:@"field_geodata_linestring[und][0][wkt]"
     [subsequentLocationsPostValue appendFormat:@"LINESTRING ("];
-    [subsequentLocationsPostValue appendString:[NSString stringWithFormat:@"%f,%f",geodata.latitude,geodata.longitude]];
+    [subsequentLocationsPostValue appendString:[NSString stringWithFormat:@"%f %f",geodata.latitude,geodata.longitude]];
     
      NSSortDescriptor * sortByDate =
      [[NSSortDescriptor alloc] initWithKey:@"timeVisited" ascending:NO];
@@ -160,7 +160,9 @@ bool doLog = false;
      NSArray * descriptors = [NSArray arrayWithObject:sortByDate];
 
     for(LocationVisit* subsequentLocation in [subsequentLocations sortedArrayUsingDescriptors:descriptors]) {
-        [subsequentLocationsPostValue appendString:[NSString stringWithFormat:@"%f,%f",[[subsequentLocation latitude] doubleValue],[[subsequentLocation longitude] doubleValue]]];
+        double subsLat = [[subsequentLocation latitude] doubleValue];
+        double subsLon = [[subsequentLocation longitude] doubleValue];
+        [subsequentLocationsPostValue appendString:[NSString stringWithFormat:@",%f %f",[[subsequentLocation latitude] doubleValue],[[subsequentLocation longitude] doubleValue]]];
     }
     
     [subsequentLocationsPostValue appendString:@")"];
