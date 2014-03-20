@@ -157,5 +157,26 @@
 {
     [super didReceiveMemoryWarning];
 }
+- (IBAction)mapTypeToggleAction:(id)sender {
+    if ([self mapMode] == AMMAPMODESATELLITE) {
+        [[self mapView] setMapType:MKMapTypeStandard];
+//        [[self mapTypeToggleButton] setTitle:@"Satellite"];
+//        [[self mapTypeToggleButton] set]
+
+        [[self mapTypeToggleB] setTitle:@"Standard" forState:UIControlStateNormal];
+        [self setMapMode:AMMAPMODESTANDARD];
+    }
+    else if ([self mapMode] == AMMAPMODESTANDARD) {
+        [[self mapView] setMapType:MKMapTypeSatellite];
+//        [[self mapTypeToggleButton] performSelectorOnMainThread:@selector(setTitle:) withObject:@"Standard" waitUntilDone:true];
+//        self.mapTypeToggleButton.title = @"Standard";
+//        [[self mapTypeToggleButton] setTitle:@"Standard"];
+        [[self mapTypeToggleB] setTitle:@"Satellite" forState:UIControlStateNormal];
+        [self setMapMode:AMMAPMODESATELLITE];
+    }
+    else {
+        NSLog(@"Unhandled case for AMMapMode:  %d",[self mapMode]);
+    }
+}
 
 @end
