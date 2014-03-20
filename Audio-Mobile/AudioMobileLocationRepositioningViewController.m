@@ -133,4 +133,22 @@
     [self dismissViewControllerAnimated:TRUE completion:nil];
 }
 
+- (IBAction)mapTypeToggleAction:(id)sender {
+    if ([self mapMode] == AMMAPMODESATELLITE) {
+        [[self mapView] setMapType:MKMapTypeStandard];
+        [[self mapTypeToggleButton] setTitle:@"Standard" forState:UIControlStateNormal];
+        [self setMapMode:AMMAPMODESTANDARD];
+    }
+    else if ([self mapMode] == AMMAPMODESTANDARD) {
+        [[self mapView] setMapType:MKMapTypeSatellite];
+        [[self mapTypeToggleButton] setTitle:@"Satellite" forState:UIControlStateNormal];
+        [self setMapMode:AMMAPMODESATELLITE];
+    }
+    else {
+        NSLog(@"Unhandled case for AMMapMode:  %d",[self mapMode]);
+    }
+}
+
+
+
 @end

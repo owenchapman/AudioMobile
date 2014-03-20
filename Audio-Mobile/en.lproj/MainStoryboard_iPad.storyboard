@@ -524,11 +524,22 @@
                                     <action selector="cancelAction:" destination="uVs-vA-wHF" eventType="touchUpInside" id="3MH-pb-Wjc"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Smc-JM-kD2">
+                                <rect key="frame" x="685" y="20" width="63" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Standard">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="mapTypeToggleAction:" destination="uVs-vA-wHF" eventType="touchUpInside" id="EcI-c1-bvu"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <connections>
                         <outlet property="hintLabel" destination="Yb8-ho-OIZ" id="KPa-Bh-b1N"/>
+                        <outlet property="mapTypeToggleButton" destination="Smc-JM-kD2" id="ij9-mI-sSM"/>
                         <outlet property="mapView" destination="h4l-9S-pND" id="y7e-h5-hjT"/>
                     </connections>
                 </viewController>

@@ -5,11 +5,7 @@
 //
 
 
-enum {
-    AMMAPMODESTANDARD = 0,
-    AMMAPMODESATELLITE = 1,
-};
-typedef NSUInteger AMMAPMODE;
+
 
 #import <UIKit/UIKit.h>
 #import <MapKit/MapKit.h>
