@@ -177,7 +177,7 @@ bool doLog = false;
                                    @"field_audionode_audio[und][0][fid]":audioID,
                                    @"field_audionode_image[und][0][filepath]":imageURL,
                                    @"field_audionode_image[und][0][fid]":imageID,
-                                   @"field_geodata_linestring[und][0][wkt]":subsequentLocationsPostValue,
+//                                   @"field_geodata_linestring[und][0][wkt]":subsequentLocationsPostValue,
                                    @"field_geodata_linestring[und][0][geo_type]":@"linestring",
                                    @"field_geodata[und][0][wkt]":[NSString stringWithFormat:@"Point (%f,%f)",geodata.latitude,geodata.longitude],
                                    @"field_geodata[und][0][geo_type]":@"point",
@@ -193,22 +193,30 @@ bool doLog = false;
                                    @"field_recording_datetime[und][0][value][day]":[self getComponent:@"d" fromDate:date],
                                    @"field_recording_datetime[und][0][value][hour]":[self getComponent:@"H" fromDate:date],
                                    @"field_recording_datetime[und][0][value][minute]":[self getComponent:@"mm" fromDate:date],
-                                   @"field_recording_datetime[und][0][value][second]":[self getComponent:@"ss" fromDate:date]
+                                   @"field_recording_datetime[und][0][value][second]":[self getComponent:@"ss" fromDate:date],
+                                    @"field_time_interval[und][0][value]":[NSString stringWithFormat:@"%@",[subsequentLocations count]==0?@"0":@"1"]
                                    };
     //TODO consider padding month and day fields, in case they are expected by drupal to be two character values.
      NSMutableDictionary* postDataDict = [[NSMutableDictionary alloc] initWithDictionary:postDataDict0];
     
-    //record the values for the subsequent location timepoints
-    //set timepoint for first location value
-    int subsequentLocationIndex = 0;
-    [postDataDict setObject:[NSString stringWithFormat:@"%lu",(unsigned long) [date timeIntervalSince1970] ] forKey:[NSString stringWithFormat:@"field_time_array[und][%d][value]",subsequentLocationIndex]];
-    subsequentLocationIndex++;
-    
-    
-    for(LocationVisit* subsequentLocation in [subsequentLocations sortedArrayUsingDescriptors:descriptors]) {
-        [postDataDict setObject:[NSString stringWithFormat:@"%lu",(unsigned long) [[subsequentLocation timeVisited] timeIntervalSince1970] ] forKey:[NSString stringWithFormat:@"field_time_array[und][%d][value]",subsequentLocationIndex]];
+    //add linestring of subsequent coordinate geodata, but only if it wasn't a static recording.
+    if ([subsequentLocations count] >0) {
+        [postDataDict setObject:subsequentLocationsPostValue forKey:@"field_geodata_linestring[und][0][wkt]"];
+        
+        //record the values for the subsequent location timepoints
+        //set timepoint for first location value
+        int subsequentLocationIndex = 0;
+        [postDataDict setObject:[NSString stringWithFormat:@"%lu",(unsigned long) [date timeIntervalSince1970] ] forKey:[NSString stringWithFormat:@"field_time_array[und][%d][value]",subsequentLocationIndex]];
         subsequentLocationIndex++;
+        
+        
+        for(LocationVisit* subsequentLocation in [subsequentLocations sortedArrayUsingDescriptors:descriptors]) {
+            [postDataDict setObject:[NSString stringWithFormat:@"%lu",(unsigned long) [[subsequentLocation timeVisited] timeIntervalSince1970] ] forKey:[NSString stringWithFormat:@"field_time_array[und][%d][value]",subsequentLocationIndex]];
+            subsequentLocationIndex++;
+        }
     }
+    
+
 
     
     bool sendJsonBody = false;
