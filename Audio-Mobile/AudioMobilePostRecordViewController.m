@@ -350,7 +350,9 @@
                                    @"author uid":[[NSNumber numberWithInteger:[[AudioMobileRestAPIManager sharedInstance] uid]] stringValue],
                                    @"name":username,
 //                                   @"image":[previewImageURL absoluteString]
+                                   @"isPreview":@true
                                    };
+        
         
         [destViewController setItemInfo:infoDict];
         [destViewController setTitle:[[self titleTextField] text]];

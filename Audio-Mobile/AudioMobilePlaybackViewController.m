@@ -98,6 +98,9 @@ NSString* oggPlaybackFilename = @"currentPlaybackSelection.ogg";
         if ([self titleBarNavItem]) {
             [[self titleBarNavItem] setTitle:[[self itemInfo] objectForKey:@"title"]];
         }
+        if ([[self itemInfo] objectForKey:@"isPreview"]) {
+            [[self heartButton] setEnabled:false];
+        }
     }
     
     if ([self title]) {
@@ -161,6 +164,7 @@ NSString* oggPlaybackFilename = @"currentPlaybackSelection.ogg";
             [self setOggFileURL:oggPlaybackFileURL];
         }];
         [self setOggDownloadOperation:operation]; //save it so we can cance if we leave this view
+        //TODO run playback buffering in background.
         [operation start];
         
         [self setBeganBuffering:true];
