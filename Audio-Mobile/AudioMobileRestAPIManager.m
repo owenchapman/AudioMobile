@@ -19,7 +19,7 @@ NSString* csrfTokenHeaderName = @"X-CSRF-Token";
 
 NSString* getNodesForUIDList = @"http://audio-mobile.org/rest/views/getcontentbypage.json?page=0&args%5B0%5D=all&args%5B1%5D="; //Note: url should be appended with comma separated list of UIDs
 
-NSString* likeNodeURLFormatString = @"http://audio-mobile.org/rest/flag/flag?flag_name=like&content_id=%d&action=%@"; //Note: url should be appended with comma
+NSString* likeNodeURLFormatString = @"http://audio-mobile.org/rest/flag/flag?flag_name=like&entity_id=%d&action=%@"; //Note: url should be appended with comma
 
 bool doLog = false;
 
@@ -638,15 +638,38 @@ bool doLog = false;
 
 -(bool) likeNode:(NSString*) nodeID doLike:(bool) like {
     NSMutableURLRequest* request;
+    NSString *xmlString;
     if (like) {
         request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:likeNodeURLFormatString,[nodeID intValue],@"flag" ]]];
+        xmlString = [NSString stringWithFormat:@"<data><flag_name>%@</flag_name><entity_id>%@</entity_id><action>%@</action></data>",@"like",nodeID,@"flag"];
+        NSLog(@"%@",xmlString);
+//        NSLog(@"%@",[request ])
     }
     else {
         //unlike the node
         request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[NSString stringWithFormat:likeNodeURLFormatString,[nodeID intValue],@"unflag" ]]];
+        xmlString = [NSString stringWithFormat:@"<data><flag_name>%@</flag_name><entity_id>%@</entity_id><action>%@</action></data>",@"like",nodeID,@"unflag"];
+        NSLog(@"%@",xmlString);
     }
 
     [self setCsrfTokenOn:request];
+    
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/x-www-form-urlencoded; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"text/xml"
+   forHTTPHeaderField:@"Content-type"];
+    
+
+    [request setValue:[NSString stringWithFormat:@"%d",
+                       [xmlString length]]
+   forHTTPHeaderField:@"Content-length"];
+    
+    [request setHTTPBody:[xmlString
+                          dataUsingEncoding:NSUTF8StringEncoding]];
+    
     
     //create background queue on which to run ogg vorbis encoding
     dispatch_queue_t myQueue = dispatch_queue_create("LikeQueue",NULL);
