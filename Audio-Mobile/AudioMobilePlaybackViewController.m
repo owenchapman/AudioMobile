@@ -161,11 +161,27 @@ NSString* oggPlaybackFilename = @"currentPlaybackSelection.ogg";
             NSString *filePath = [[paths objectAtIndex:0] stringByAppendingPathComponent:oggPlaybackFilename];
             
             NSURL* oggPlaybackFileURL = [NSURL fileURLWithPath:filePath];
-            [self setOggFileURL:oggPlaybackFileURL];
+            
+            AudioMobilePlaybackViewController* this= self;
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [this setOggFileURL:oggPlaybackFileURL];
+            });
+            
+
         }];
         [self setOggDownloadOperation:operation]; //save it so we can cance if we leave this view
         //TODO run playback buffering in background.
-        [operation start];
+        
+        //create background queue on which to buffer the ogg file
+        dispatch_queue_t myQueue = dispatch_queue_create("BufferOggQueue",NULL);
+        
+        dispatch_async(myQueue, ^{
+            // Perform long running process
+            [operation start];
+        });
+        
+//        [operation start];
         
         [self setBeganBuffering:true];
     }

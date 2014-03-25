@@ -82,16 +82,7 @@
                 });
             });
             
-//            dispatch_async(dispatch_get_main_queue(), ^{
-//                NSURL* creatorImageURL = [[AudioMobileRestAPIManager sharedInstance] getCreatorThumbnailURL:[NSString stringWithFormat:@"%lu",[[AudioMobileRestAPIManager sharedInstance] uid]]] ;
-//                if (creatorImageURL!=nil) {
-//                    [[[this profileImageThumb] imageView] setImageWithURL:creatorImageURL placeholderImage:[UIImage imageNamed:@"LoadingTexture.png"]];
-//                    //                    [creatorThumbnailView setImageWithURL:creatorImageURL placeholderImage:[UIImage imageNamed:@"LoadingTexture.png"]];
-//                }
-//                else {
-//                    [[[this profileImageThumb] imageView] setImage:[UIImage imageNamed:@"LoadingTexture.png"]];
-//                }
-//            });
+
         };
     }
 }
