@@ -306,7 +306,8 @@ bool doLog = false;
                                    @"field_geodata[und][0][lon]":[NSString stringWithFormat:@"%f",geodata.longitude],
                                    @"field_geodata[und][0][lat]":[NSString stringWithFormat:@"%f",geodata.latitude],
                                    @"field_audionode_privacy[und][0][value]":isPrivate?@"private":@"public",
-                                   @"field_audionode_weather[und][0][tid]":weatherCode,
+//                                   @"field_audionode_weather[und][0][tid]":weatherCode,
+                                   @"field_audionode_weather[und]":weatherCode,                                    
                                    @"field_duration[und][0][value]":[NSString stringWithFormat:@"%f",duration],
                                    @"field_non_geo_location[und][0][value]":locationDescription,
 

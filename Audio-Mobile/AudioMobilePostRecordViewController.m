@@ -322,7 +322,7 @@
             bool postPrivately = [[self publicPrivateControl] selectedSegmentIndex]==1;
             dispatch_queue_t myQueue = dispatch_queue_create("FeaturedItemRetrievalQueue",NULL);
             dispatch_async(myQueue, ^{
-                [[AudioMobileRestAPIManager sharedInstance] uploadNode:[NSString stringWithFormat:AMDEVMODE?@"DevNode01-%@":@"%@",[[self titleTextField] text]] notes:notes imageFile:imageFileOnDiskURL audioFile:[self oggVorbisFileRecordingURL] recordingLength:33 weather:[((NSDictionary*)[[self segmentToWeatherMap] objectAtIndex:[[self weatherControl] selectedSegmentIndex]]) objectForKey:@"tid"]   geodata:recordingLocation secondaryGeodata:subsequentLocations subsequentLocationTimepoints:nil private:postPrivately date:recordingDate locationDescription:locationDescription error:&err notify:self];
+                [[AudioMobileRestAPIManager sharedInstance] uploadNode:[NSString stringWithFormat:AMDEVMODE?@"DevNode01-%@":@"%@",[[self titleTextField] text]] notes:notes imageFile:imageFileOnDiskURL audioFile:[self oggVorbisFileRecordingURL] recordingLength:33 weather:[((NSDictionary*)[[self segmentToWeatherMap] objectAtIndex:[[self weatherControl] selectedSegmentIndex]]) objectForKey:@"name"]   geodata:recordingLocation secondaryGeodata:subsequentLocations subsequentLocationTimepoints:nil private:postPrivately date:recordingDate locationDescription:locationDescription error:&err notify:self];
 
             });
         }
