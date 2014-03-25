@@ -9,6 +9,7 @@
 #import "AFURLRequestSerialization.h"
 #import "NSString+URLEncoding.h"
 #import "AudioMobileDataModel.h"
+#import "AudioMobileAppDelegate.h"
 
 @implementation AudioMobileRestAPIManager
 
@@ -77,6 +78,127 @@ bool doLog = false;
     
     UIImage* creatorPic = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:pictureID]]];
     return creatorPic;
+}
+
+-(void) uploadProfilePic:(NSData*)pic notify:(id<AudioMobileRestAsyncResponseNotifier>)responder {
+//    NSString* imageFileName = [[pic pathComponents] objectAtIndex:[[pic pathComponents] count]-1];
+    
+    //first upload the profile pic
+    NSError* error = nil;
+    //    [[image pathComponents] objectAtIndex:[[image pathComponents] count]-1];
+    
+    //TODO determine if png is the correct file type
+    NSString* titledImageFileName = @"userProfilePic.png";
+    NSDictionary* imageFileInfo = [self uploadFileData:pic withName:titledImageFileName fileSize:[NSNumber numberWithUnsignedInteger:[pic length]] error:&error];
+    if (error || imageFileInfo == nil) {
+        NSLog(@"Failed to upload image file for node due to error: %@",error);
+        if (responder) [responder uploadCompletedWithResult:AMUPLOADFAIL];
+        return;
+    }
+    
+    //now send the message to the server indicating that this picture should be used as the user's profile image
+    
+    
+    NSString* requestURL = [restEndpoint stringByAppendingString:[NSString stringWithFormat:@"user/%ld",(long)[self uid]]];
+    
+    NSLog(@"Request url to server is %@",requestURL);
+    
+    
+    NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:requestURL]];
+    
+    [request setHTTPMethod:@"POST"];
+    [request setValue:@"application/x-www-form-urlencoded; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [self setCsrfTokenOn:request];
+    
+    
+
+    
+    NSDictionary* postDataDict0 = @{@"current_pass": [[AudioMobileAppDelegate sharedInstance] getSavedPassword] ,
+                                    @"field_userdata_image[und][0][fid]":[imageFileInfo objectForKey:@"fid"],
+                                    };
+    //TODO consider padding month and day fields, in case they are expected by drupal to be two character values.
+    NSMutableDictionary* postDataDict = [[NSMutableDictionary alloc] initWithDictionary:postDataDict0];
+    
+    bool sendJsonBody = false;
+    bool useExampleJson = false;
+    NSData* postData ;
+    NSString *filePath = [[NSBundle mainBundle] pathForResource:@"node_upload_example" ofType:@"json"];
+    
+    if (!sendJsonBody) {
+        if (useExampleJson) {
+            postData = [NSData dataWithContentsOfFile:filePath];
+            error = nil;
+            postDataDict = [NSJSONSerialization JSONObjectWithData:postData options:0 error:&error];
+            if (error) {
+                NSLog(@"Failed to deserialize example json to dictionary object due to error %@",error);
+                if (responder) [responder uploadCompletedWithResult:AMUPLOADFAIL];
+                return;
+            }
+            
+        }
+        
+        postData= [self urlEncodeDictionaryWithJSONValues:postDataDict];
+        
+    }
+    else {
+        error = nil;
+        postData = [NSJSONSerialization dataWithJSONObject:postDataDict options:0 error:&error];
+        
+        if (useExampleJson) {
+            postData = [NSData dataWithContentsOfFile:filePath];
+        }
+        
+        
+        if (error) {
+            NSLog(@"Failed to serialize post data as json due to error %@",error);
+            if (responder) [responder uploadCompletedWithResult:AMUPLOADFAIL];
+            return;
+        }
+        NSString* postJsonString = [[NSString alloc] initWithData:postData encoding:NSUTF8StringEncoding];
+        NSLog(@"postData json is %@",postJsonString);
+        postData = [[postJsonString urlEncodeUsingEncoding:NSUTF8StringEncoding] dataUsingEncoding:NSUTF8StringEncoding];
+    }
+    
+    NSLog(@"Here is the post data for our node post attempt: %@",postDataDict);
+    [request setHTTPMethod:@"POST"];
+    
+    NSLog(@"Here is the url encoded post data for our profile pic upload attempt: %@",[[NSString alloc] initWithData:postData encoding:NSUTF8StringEncoding]);
+    [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)postData.length] forHTTPHeaderField:@"Content-Length"];
+    [request setHTTPBody:postData];
+    
+    NSURLResponse* response;
+    error = nil;
+    NSData* responseData = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+    
+    if (error || !responseData) {
+        NSLog(@"Error occured in post file request: %@",error);
+        if (responder) [responder uploadCompletedWithResult:AMUPLOADFAIL];
+        return ;
+        
+    }
+    else {
+        NSLog(@"Response data from node post was: %@, and response status code was %ld",[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding],(long)[((NSHTTPURLResponse*) response) statusCode]);
+    }
+    error = nil;
+    NSDictionary* responseDict = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&error];
+    
+    if (error) {
+        NSLog(@"failed to deserialize json resposne for file post due to error: %@, response was %@",error,[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding]);
+        if (responder) [responder uploadCompletedWithResult:AMUPLOADFAIL];
+        return ;
+    }
+    NSLog(@"json response was %@",responseDict);
+    
+    if (![responseDict objectForKey:@"nid"]) {
+        NSLog(@"ERROR:  Failed to upload node, server returned invalid response;  expected 'nid' field, but found none");
+        if (responder) [responder uploadCompletedWithResult:AMUPLOADFAIL];
+        return ;
+    }
+    
+    if (responder) [responder uploadCompletedWithResult:AMUPLOADSUCCESS];
+    return;
+
 }
 
 
@@ -357,8 +479,8 @@ bool doLog = false;
     return [encodedDictionary dataUsingEncoding:NSUTF8StringEncoding];
 }
 
--(NSDictionary*) uploadFile:(NSURL*) fileURL withName:(NSString*)fileName error:(NSError**)error {
-    
+
+-(NSDictionary*) uploadFileData:(NSData*) fileData withName:(NSString*)fileName fileSize:(NSNumber*) originalFileSize error:(NSError**)error {
     if (![self csrfToken]) {
         NSLog(@"Cannot upload without csrf token");
         return nil;
@@ -368,26 +490,24 @@ bool doLog = false;
         NSLog(@"UID is 0, UID has not been set, user is not logged in");
         return nil;
     }
-
     
     NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:[restEndpoint stringByAppendingString:@"file.json"]]];
-    NSData* fileContentsBase64 = [[NSData dataWithContentsOfURL:fileURL] base64EncodedDataWithOptions:NSDataBase64Encoding64CharacterLineLength];
+    
+    
+    NSData* fileContentsBase64 = [fileData base64EncodedDataWithOptions:NSDataBase64Encoding64CharacterLineLength];
     NSString* filepath = [NSString stringWithFormat:@"public://%@",fileName];
     [request setValue:@"application/x-www-form-urlencoded; charset=utf-8" forHTTPHeaderField:@"Content-Type"]; //consider trying this alternate content-type with charset info
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [self setCsrfTokenOn:request];
     
     
-    NSNumber* originalFileSize = [[[NSFileManager defaultManager] attributesOfItemAtPath:[fileURL path] error:error] objectForKey:NSFileSize];
-    
-    
     NSDictionary* postDataDict = @{@"filename":fileName,
-                               @"filesize":[originalFileSize stringValue],
-                               @"filepath":filepath,
-                               @"file":[[NSString alloc] initWithData:fileContentsBase64 encoding:NSUTF8StringEncoding]
-                               };
+                                   @"filesize":[originalFileSize stringValue],
+                                   @"filepath":filepath,
+                                   @"file":[[NSString alloc] initWithData:fileContentsBase64 encoding:NSUTF8StringEncoding]
+                                   };
     NSLog(@"attempting to post file with filename %@ to path %@ with filesize %@",postDataDict[@"filename"],postDataDict[@"filepath"],postDataDict[@"filesize"]);
-
+    
     
     
     [request setHTTPMethod:@"POST"];
@@ -414,78 +534,18 @@ bool doLog = false;
     
     return responseDict;
     
-    AFHTTPRequestOperationManager *manager = [AFHTTPRequestOperationManager manager];
-    NSMutableURLRequest* request1 = [manager.requestSerializer multipartFormRequestWithMethod:@"POST" URLString:[restEndpoint stringByAppendingString:@"file.json"] parameters:@{} constructingBodyWithBlock:^(id  formData) {
-        NSError* err;
-        NSData* base64file = [[NSData dataWithContentsOfURL:fileURL] base64EncodedDataWithOptions:NSDataBase64Encoding64CharacterLineLength];
-        
-        NSLog(@"Size of base64 encoded data is %u",[base64file length]);
-        [formData appendPartWithFormData:base64file name:@"file"];
-        
-        [formData appendPartWithFormData:[fileName dataUsingEncoding:NSUTF8StringEncoding] name:@"filename"];
-        [formData appendPartWithFormData:[[[NSNumber numberWithInteger:[self uid]] stringValue] dataUsingEncoding:NSUTF8StringEncoding] name:@"uid"];
-        err = nil;
-        NSDictionary* fileInfo = [[NSFileManager defaultManager] attributesOfItemAtPath:[fileURL path] error:&err];
-        
-        if (err) {
-            NSLog(@"Failed to get attributes of file for upload");
-        }
-        
-        NSString* filesizeString = [((NSNumber*)[fileInfo objectForKey:NSFileSize]) stringValue];
-        [formData appendPartWithFormData:[filesizeString dataUsingEncoding:NSUTF8StringEncoding] name:@"filesize"];
-        [formData appendPartWithFormData:[[NSString stringWithFormat:@"public://%@",fileName] dataUsingEncoding:NSUTF8StringEncoding] name:@"filepath"];
-        
-    }];
+}
+
+-(NSDictionary*) uploadFile:(NSURL*) fileURL withName:(NSString*)fileName error:(NSError**)error {
     
-    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-type"];
-    [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    
-    //grab the session cookie and pass it in the header:
-    NSString* sessionCookie;
-    NSString* sessionCookieName;
-    NSArray* cookies = [[NSHTTPCookieStorage sharedHTTPCookieStorage] cookiesForURL:[NSURL URLWithString:@"http://audio-mobile.org"]];
-    
-    for(NSHTTPCookie* cookie in cookies) {
-        NSLog(@"Cookie! %@:%@",[cookie name],[cookie value]);
-        if ([[cookie name] hasPrefix:@"SESS"]) {
-            sessionCookie = [cookie value];
-            sessionCookieName = [cookie name];
-        }
-    }
-    if (!sessionCookie) {
-        NSLog(@"ERROR:  Could not find session cookie, could not place session header in http request!  File upload may fail!");
-    }
-    else {
-        [request setValue:[NSString stringWithFormat:@"%@=%@",sessionCookieName,sessionCookie] forHTTPHeaderField:@"Cookie"];
+    if (![[NSFileManager defaultManager] fileExistsAtPath:[fileURL path]]) {
+        NSLog(@"upload file does not exist!");
     }
     
+    NSNumber* originalFileSize = [[[NSFileManager defaultManager] attributesOfItemAtPath:[fileURL path] error:error] objectForKey:NSFileSize];
     
-    [self setCsrfTokenOn:request];
+    return [self uploadFileData:[NSData dataWithContentsOfURL:fileURL] withName:fileName fileSize:originalFileSize  error:error];
     
-    AFHTTPRequestOperation *operation = [manager HTTPRequestOperationWithRequest:request success:^(AFHTTPRequestOperation *operation, id responseObject){
-        NSLog(@"Successfully uploaded file");
-        NSLog(@"response from server was: %@",[[NSString alloc] initWithData:[responseObject responseData]  encoding:NSUTF8StringEncoding]);
-        NSLog(@"Response object was %@",[responseObject class]);
-        NSLog(@"server response code was: %d",[((NSHTTPURLResponse*) responseObject) statusCode]);
-        
-        NSLog(@"server response code was: %d",[((NSHTTPURLResponse*) [operation response]) statusCode]);
-        NSDictionary* headers = [[operation request] allHTTPHeaderFields];
-        for(NSString* headerName in [headers keyEnumerator]) {
-            NSLog(@"request header: %@:%@",headerName,[headers objectForKey:headerName]);
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        NSLog(@"Error uploading file: %@", error);
-        NSLog(@"Response string: %@",[operation responseString]);
-        NSLog(@"server response code was: %d",[((NSHTTPURLResponse*) [operation response]) statusCode]);
-        NSDictionary* headers = [[operation request] allHTTPHeaderFields];
-        for(NSString* headerName in [headers keyEnumerator]) {
-            NSLog(@"request header: %@:%@",headerName,[headers objectForKey:headerName]);
-        }
-        
-        NSLog(@"body of request: %@",[[NSString alloc] initWithData:[[operation request] HTTPBody]  encoding:NSUTF8StringEncoding]);
-        
-    }];
-    [manager.operationQueue addOperation:operation];
     
     
 }

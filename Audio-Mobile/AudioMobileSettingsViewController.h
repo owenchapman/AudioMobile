@@ -7,7 +7,7 @@
 #import <UIKit/UIKit.h>
 #import "AudioMobileAppDelegate.h"
 
-@interface AudioMobileSettingsViewController : UIViewController<UIImagePickerControllerDelegate,UIAlertViewDelegate>
+@interface AudioMobileSettingsViewController : UIViewController<UIImagePickerControllerDelegate,UIAlertViewDelegate,AudioMobileRestAsyncResponseNotifier>
 
 @property (weak, nonatomic) IBOutlet UIButton *publicAudioB;
 @property (weak, nonatomic) IBOutlet UIButton *privateAudioB;
@@ -21,5 +21,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *loginLogoutButton;
 
 @property (weak, nonatomic) IBOutlet UISegmentedControl *gpsIntervalControl;
+
+@property (assign,nonatomic) UIImage* uploadedProfilePicRef;
 
 @end

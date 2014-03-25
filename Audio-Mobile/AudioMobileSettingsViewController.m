@@ -122,15 +122,15 @@
 }
 
 - (IBAction)changeProfileImage:(id)sender {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Info"
-                                                    message:@"Please visit the http://audio-mobile.org website to change your profile image."
-                                                   delegate:self
-                                          cancelButtonTitle:@"OK"
-                                          otherButtonTitles:@"Visit Website",nil];
-    [alert show];
+//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Info"
+//                                                    message:@"Please visit the http://audio-mobile.org website to change your profile image."
+//                                                   delegate:self
+//                                          cancelButtonTitle:@"OK"
+//                                          otherButtonTitles:@"Visit Website",nil];
+//    [alert show];
     
     
-//    [self showImagePickerForSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
+    [self showImagePickerForSourceType:UIImagePickerControllerSourceTypePhotoLibrary];
     
 }
 
@@ -195,8 +195,32 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
-    [[self profileImageThumb] setImage:image forState:UIControlStateNormal];
+    
+    NSURL* newImageURL = [AudioMobileAppDelegate generateUniqueFileURLWithPrefix:@"ProfileImage" andExtension:@"jpg"];
+    
+    NSData* jpegData = UIImageJPEGRepresentation([AudioMobileAppDelegate fixrotation:image], 0.25);
+//    [jpegData writeToFile:[newImageURL path] atomically:YES];
+    
+    [[AudioMobileRestAPIManager sharedInstance] uploadProfilePic:jpegData notify:self];
+    
+    //record a copy of the profile pic, so we can use it later to update this view
+    [self setUploadedProfilePicRef:image];
     [self dismissViewControllerAnimated:YES completion:NULL];
+}
+
+-(void) uploadCompletedWithResult:(AMUPLOADSTATUS)uploadStatus {
+    
+    if (uploadStatus == AMUPLOADSUCCESS) {
+        [[self profileImageThumb] setImage:[self uploadedProfilePicRef] forState:UIControlStateNormal];
+    }
+    else {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error"
+                                                        message:@"Failed to upload your profile image to the server."
+                                                       delegate:self
+                                              cancelButtonTitle:@"OK"
+                                              otherButtonTitles:nil];
+        [alert show];
+    }
 }
 
 - (IBAction)gpsIntervalControlAction:(id)sender {

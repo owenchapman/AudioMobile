@@ -70,4 +70,7 @@ typedef NSUInteger AMUPLOADSTATUS;
 
 -(bool) likeNode:(NSString*) nodeID  doLike:(bool) like;
 
+-(void) uploadProfilePic:(NSData*)pic notify:(id<AudioMobileRestAsyncResponseNotifier>)responder;
+
+
 @end
