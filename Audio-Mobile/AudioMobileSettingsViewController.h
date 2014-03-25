@@ -6,8 +6,11 @@
 
 #import <UIKit/UIKit.h>
 #import "AudioMobileAppDelegate.h"
+#import "Reachability.h"
 
-@interface AudioMobileSettingsViewController : UIViewController<UIImagePickerControllerDelegate,UIAlertViewDelegate,AudioMobileRestAsyncResponseNotifier>
+@interface AudioMobileSettingsViewController : UIViewController<UIImagePickerControllerDelegate,UIAlertViewDelegate,AudioMobileRestAsyncResponseNotifier> {
+    Reachability* internetReachable;
+}
 
 @property (weak, nonatomic) IBOutlet UIButton *publicAudioB;
 @property (weak, nonatomic) IBOutlet UIButton *privateAudioB;
@@ -23,5 +26,7 @@
 @property (weak, nonatomic) IBOutlet UISegmentedControl *gpsIntervalControl;
 
 @property (assign,nonatomic) UIImage* uploadedProfilePicRef;
+
+@property (assign, nonatomic) UIActivityIndicatorView* actInd;
 
 @end

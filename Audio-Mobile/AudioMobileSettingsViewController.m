@@ -6,6 +6,8 @@
 
 #import "AudioMobileSettingsViewController.h"
 #import "AudioMobileStyle.h"
+#import "Reachability.h"
+#import "UIImageView+AFNetworking.h"
 
 @interface AudioMobileSettingsViewController ()
 
@@ -31,6 +33,67 @@
     
     //add observer on the login status variable of the app within the app delegate
     [((AudioMobileAppDelegate*)[[UIApplication sharedApplication] delegate]) addObserver:self forKeyPath:@"loggedIn" options:0 context:nil];
+    
+    //display the user's profile info, if they are logged in
+    [self loadProfileImageThumbIfAvailable];
+    
+}
+
+-(void) loadProfileImageThumbIfAvailable {
+    if ([[AudioMobileAppDelegate sharedInstance] loggedIn]) {
+        UIImageView* creatorThumbnailView = [self profileImageThumb];
+        // Internet is reachable
+        //        internetReachable = [Reachability reachabilityWithHostname:@"www.audiomobile.org"];
+        internetReachable = [Reachability reachabilityWithHostname:@"www.audiomobile.org"];
+        AudioMobileSettingsViewController* this = self;
+        
+        if ([internetReachable isReachable]){
+            NSLog(@"internet reacheable, retrieving user image");
+        }
+        else {
+            NSLog(@"internet unreacheable, cannot retrieve user image");
+        }
+        
+        //        internetReachable.reachableBlock = ^(Reachability*reach)
+        
+        //        {
+        if ([internetReachable isReachable]){
+            // Update the UI on the main thread
+            
+            //create background queue on which to download profile image
+            dispatch_queue_t myQueue = dispatch_queue_create("ProfileImageQueue",NULL);
+            
+            dispatch_async(myQueue, ^{
+                // Perform long running process
+                NSURL* creatorImageURL = [[AudioMobileRestAPIManager sharedInstance] getCreatorThumbnailURL:[NSString stringWithFormat:@"%lu",[[AudioMobileRestAPIManager sharedInstance] uid]]] ;
+                
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    // Update the UI
+                    if (creatorImageURL!=nil) {
+                        [[[this profileImageThumb] imageView] setImageWithURL:creatorImageURL placeholderImage:[UIImage imageNamed:@"LoadingTexture.png"]];
+//                        [[[this profileImageThumb] imageView] setImage:[UIImage imageNamed:@"rainbow_power.png"]];
+                        //                    [creatorThumbnailView setImageWithURL:creatorImageURL placeholderImage:[UIImage imageNamed:@"LoadingTexture.png"]];
+                    }
+                    else {
+                        [[[this profileImageThumb] imageView] setImage:[UIImage imageNamed:@"LoadingTexture.png"]];
+                    }
+                    
+                });
+            });
+            
+//            dispatch_async(dispatch_get_main_queue(), ^{
+//                NSURL* creatorImageURL = [[AudioMobileRestAPIManager sharedInstance] getCreatorThumbnailURL:[NSString stringWithFormat:@"%lu",[[AudioMobileRestAPIManager sharedInstance] uid]]] ;
+//                if (creatorImageURL!=nil) {
+//                    [[[this profileImageThumb] imageView] setImageWithURL:creatorImageURL placeholderImage:[UIImage imageNamed:@"LoadingTexture.png"]];
+//                    //                    [creatorThumbnailView setImageWithURL:creatorImageURL placeholderImage:[UIImage imageNamed:@"LoadingTexture.png"]];
+//                }
+//                else {
+//                    [[[this profileImageThumb] imageView] setImage:[UIImage imageNamed:@"LoadingTexture.png"]];
+//                }
+//            });
+        };
+    }
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -42,6 +105,7 @@
         NSLog(@"Old, new, current values for loggedIn: %@, %@, %d",oldValue,newValue,[[AudioMobileAppDelegate sharedInstance] loggedIn]);
         if ([[AudioMobileAppDelegate sharedInstance] loggedIn]) {
             [self adjustViewControlsToLoginState:YES];
+            [self loadProfileImageThumbIfAvailable];
         }
         else {
             [self adjustViewControlsToLoginState:NO];
@@ -184,7 +248,7 @@
 }
 
 - (IBAction)registerButtonAction:(id)sender {
-    NSURL *url = [NSURL URLWithString:@"http://www.audio-mobile.org"];
+    NSURL *url = [NSURL URLWithString:@"http://audio-mobile.org/user/register"];
     
     if (![[UIApplication sharedApplication] openURL:url]) {
         NSLog(@"Error:  failed to open link to main website.");
