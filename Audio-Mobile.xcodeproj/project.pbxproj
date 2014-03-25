@@ -113,6 +113,7 @@
 		2EF7ECC1185B8525009C4F3E /* MapIcon_Black.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EF7ECBE185B8525009C4F3E /* MapIcon_Black.png */; };
 		2EF7ECC2185B8525009C4F3E /* MapIcon_Shadow.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EF7ECBF185B8525009C4F3E /* MapIcon_Shadow.png */; };
 		2EF7ECC3185B8525009C4F3E /* MapIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EF7ECC0185B8525009C4F3E /* MapIcon.png */; };
+		2EF7F55E18E24CD300CF7138 /* LoadingTexture_small.png in Resources */ = {isa = PBXBuildFile; fileRef = 2EF7F55D18E24CD300CF7138 /* LoadingTexture_small.png */; };
 		2EF97F7C1843DFBB00AE07FC /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EF97F7B1843DFBB00AE07FC /* MobileCoreServices.framework */; };
 		2EF97F7F1843EF5900AE07FC /* AudioMobileConsentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2EF97F7E1843EF5900AE07FC /* AudioMobileConsentViewController.m */; };
 		2EF97F811843F0A500AE07FC /* AUDIO_MOBILE_APP_Consent_Form.html in Resources */ = {isa = PBXBuildFile; fileRef = 2EF97F801843F0A500AE07FC /* AUDIO_MOBILE_APP_Consent_Form.html */; };
@@ -293,6 +294,7 @@
 		2EF7ECBE185B8525009C4F3E /* MapIcon_Black.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MapIcon_Black.png; path = images/Misc/MapIcon_Black.png; sourceTree = "<group>"; };
 		2EF7ECBF185B8525009C4F3E /* MapIcon_Shadow.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MapIcon_Shadow.png; path = images/Misc/MapIcon_Shadow.png; sourceTree = "<group>"; };
 		2EF7ECC0185B8525009C4F3E /* MapIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = MapIcon.png; path = images/Misc/MapIcon.png; sourceTree = "<group>"; };
+		2EF7F55D18E24CD300CF7138 /* LoadingTexture_small.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = LoadingTexture_small.png; path = images/Misc/LoadingTexture_small.png; sourceTree = "<group>"; };
 		2EF97F7B1843DFBB00AE07FC /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		2EF97F7D1843EF5900AE07FC /* AudioMobileConsentViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AudioMobileConsentViewController.h; sourceTree = "<group>"; };
 		2EF97F7E1843EF5900AE07FC /* AudioMobileConsentViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AudioMobileConsentViewController.m; sourceTree = "<group>"; };
@@ -427,6 +429,7 @@
 		2E9C0A3A17F1FB5A00672F49 /* miscellaneous */ = {
 			isa = PBXGroup;
 			children = (
+				2EF7F55D18E24CD300CF7138 /* LoadingTexture_small.png */,
 				2EE4174518C25BAC00EF82A9 /* MapIcon_v2.png */,
 				2E2C14CD18BCF504005B4C17 /* CompassIcon_small.png */,
 				2E2C14CB18BCE8D2005B4C17 /* CompassIcon.png */,
@@ -749,6 +752,7 @@
 				2EDFF81E1805AA1800A04F52 /* Heart_ON@2x.png in Resources */,
 				2EDFF8261805AAF900A04F52 /* Play@2x.png in Resources */,
 				2EFDFBDD17EF7EDA001DF095 /* MainStoryboard_iPad.storyboard in Resources */,
+				2EF7F55E18E24CD300CF7138 /* LoadingTexture_small.png in Resources */,
 				2E08BFDE180ED9C400B9A557 /* Stormy.png in Resources */,
 				2EFDFBE217EF7EDA001DF095 /* first.png in Resources */,
 				2E08BFE1180ED9C400B9A557 /* Cloudy.png in Resources */,

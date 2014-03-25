@@ -104,11 +104,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Audio-Mobile/AudioMobileRestAPIManager.m"
-            timestampString = "416424100.771367"
+            timestampString = "417477843.572771"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "93"
-            endingLineNumber = "93"
+            startingLineNumber = "215"
+            endingLineNumber = "215"
             landmarkName = "-uploadNode:notes:imageFile:audioFile:recordingLength:weather:geodata:secondaryGeodata:subsequentLocationTimepoints:private:date:locationDescription:error:notify:"
             landmarkType = "5">
          </BreakpointContent>
@@ -182,11 +182,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Audio-Mobile/AudioMobileRestAPIManager.m"
-            timestampString = "416425433.223478"
+            timestampString = "417477843.572771"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "116"
-            endingLineNumber = "116"
+            startingLineNumber = "238"
+            endingLineNumber = "238"
             landmarkName = "-uploadNode:notes:imageFile:audioFile:recordingLength:weather:geodata:secondaryGeodata:subsequentLocationTimepoints:private:date:locationDescription:error:notify:"
             landmarkType = "5">
             <Locations>
@@ -228,11 +228,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Audio-Mobile/AudioMobileRestAPIManager.m"
-            timestampString = "416425790.85495"
+            timestampString = "417477843.572771"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "151"
-            endingLineNumber = "151"
+            startingLineNumber = "273"
+            endingLineNumber = "273"
             landmarkName = "-uploadNode:notes:imageID:imageURL:audioID:audioURL:recordingLength:weather:geodata:secondaryGeodata:subsequentLocationTimepoints:private:date:locationDescription:error:notify:"
             landmarkType = "5">
          </BreakpointContent>
@@ -320,11 +320,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Audio-Mobile/AudioMobileRestAPIManager.m"
-            timestampString = "416439570.357283"
+            timestampString = "417477843.572771"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "172"
-            endingLineNumber = "172"
+            startingLineNumber = "294"
+            endingLineNumber = "294"
             landmarkName = "-uploadNode:notes:imageID:imageURL:audioID:audioURL:recordingLength:weather:geodata:secondaryGeodata:subsequentLocationTimepoints:private:date:locationDescription:error:notify:"
             landmarkType = "5">
          </BreakpointContent>
@@ -352,11 +352,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Audio-Mobile/AudioMobileRestAPIManager.m"
-            timestampString = "417134441.594263"
+            timestampString = "417478457.045562"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "203"
-            endingLineNumber = "203"
+            startingLineNumber = "326"
+            endingLineNumber = "326"
             landmarkName = "-uploadNode:notes:imageID:imageURL:audioID:audioURL:recordingLength:weather:geodata:secondaryGeodata:subsequentLocationTimepoints:private:date:locationDescription:error:notify:"
             landmarkType = "5">
          </BreakpointContent>
@@ -368,43 +368,233 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Audio-Mobile/AudioMobileRestAPIManager.m"
-            timestampString = "417134634.656215"
+            timestampString = "417477843.572771"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "162"
-            endingLineNumber = "162"
+            startingLineNumber = "284"
+            endingLineNumber = "284"
             landmarkName = "-uploadNode:notes:imageID:imageURL:audioID:audioURL:recordingLength:weather:geodata:secondaryGeodata:subsequentLocationTimepoints:private:date:locationDescription:error:notify:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Audio-Mobile/AudioMobileSettingsViewController.m"
+            timestampString = "417483624.598463"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "252"
+            endingLineNumber = "252"
+            landmarkName = "-imagePickerController:didFinishPickingMediaWithInfo:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Audio-Mobile/AudioMobileRestAPIManager.m"
+            timestampString = "417476220.429587"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "92"
+            endingLineNumber = "92"
+            landmarkName = "-uploadProfilePic:notify:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Audio-Mobile/AudioMobileSettingsViewController.m"
+            timestampString = "417483624.598463"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "256"
+            endingLineNumber = "256"
+            landmarkName = "-imagePickerController:didFinishPickingMediaWithInfo:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Audio-Mobile/AudioMobileRestAPIManager.m"
+            timestampString = "417477840.399276"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "104"
+            endingLineNumber = "104"
+            landmarkName = "-uploadProfilePic:notify:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Audio-Mobile/AudioMobileLoginViewController.m"
+            timestampString = "417480227.229014"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "56"
+            endingLineNumber = "56"
+            landmarkName = "-login:"
+            landmarkType = "5">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__40-[AudioMobileLoginViewController login:]_block_invoke"
+                  moduleName = "Audio-Mobile"
+                  urlString = "file:///Users/mikematan/github/AudioMobile/Audio-Mobile/AudioMobileLoginViewController.m"
+                  timestampString = "417481651.192726"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "56"
+                  endingLineNumber = "56"
+                  offsetFromSymbolStart = "80">
+               </Location>
+               <Location
+                  shouldBeEnabled = "No"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "__40-[AudioMobileLoginViewController login:]_block_invoke_2"
+                  moduleName = "Audio-Mobile"
+                  urlString = "file:///Users/mikematan/github/AudioMobile/Audio-Mobile/AudioMobileLoginViewController.m"
+                  timestampString = "417481651.192888"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "56"
+                  endingLineNumber = "56"
+                  offsetFromSymbolStart = "32">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Audio-Mobile/AudioMobileLoginViewController.m"
+            timestampString = "417480232.765169"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "58"
+            endingLineNumber = "58"
+            landmarkName = "-login:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Audio-Mobile/AudioMobileSettingsViewController.m"
+            timestampString = "417481644.237942"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "66"
+            endingLineNumber = "66"
+            landmarkName = "-loadProfileImageThumbIfAvailable"
             landmarkType = "5">
             <Locations>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "-[AudioMobileRestAPIManager uploadNode:notes:imageID:imageURL:audioID:audioURL:recordingLength:weather:geodata:secondaryGeodata:subsequentLocationTimepoints:private:date:locationDescription:error:notify:]"
+                  symbolName = "-[AudioMobileSettingsViewController loadProfileImageThumbIfAvailable]"
                   moduleName = "Audio-Mobile"
-                  urlString = "file:///Users/mikematan/github/AudioMobile/Audio-Mobile/AudioMobileRestAPIManager.m"
-                  timestampString = "417134634.663085"
+                  urlString = "file:///Users/mikematan/github/AudioMobile/Audio-Mobile/AudioMobileSettingsViewController.m"
+                  timestampString = "417484053.845799"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "162"
-                  endingLineNumber = "162"
-                  offsetFromSymbolStart = "2030">
+                  startingLineNumber = "66"
+                  endingLineNumber = "66"
+                  offsetFromSymbolStart = "448">
                </Location>
                <Location
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "-[AudioMobileRestAPIManager uploadNode:notes:imageID:imageURL:audioID:audioURL:recordingLength:weather:geodata:secondaryGeodata:subsequentLocationTimepoints:private:date:locationDescription:error:notify:]"
+                  symbolName = "__69-[AudioMobileSettingsViewController loadProfileImageThumbIfAvailable]_block_invoke"
                   moduleName = "Audio-Mobile"
-                  urlString = "file:///Users/mikematan/github/AudioMobile/Audio-Mobile/AudioMobileRestAPIManager.m"
-                  timestampString = "417134634.663321"
+                  urlString = "file:///Users/mikematan/github/AudioMobile/Audio-Mobile/AudioMobileSettingsViewController.m"
+                  timestampString = "417484053.845951"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "162"
-                  endingLineNumber = "162"
-                  offsetFromSymbolStart = "2850">
+                  startingLineNumber = "66"
+                  endingLineNumber = "66"
+                  offsetFromSymbolStart = "32">
                </Location>
             </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Audio-Mobile/AudioMobileSettingsViewController.m"
+            timestampString = "417481645.794037"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "68"
+            endingLineNumber = "68"
+            landmarkName = "-loadProfileImageThumbIfAvailable"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Audio-Mobile/AudioMobileSettingsViewController.m"
+            timestampString = "417481647.7616"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
+            landmarkName = "-loadProfileImageThumbIfAvailable"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Audio-Mobile/AudioMobileSettingsViewController.m"
+            timestampString = "417484053.754858"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "45"
+            endingLineNumber = "45"
+            landmarkName = "-loadProfileImageThumbIfAvailable"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
