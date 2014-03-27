@@ -17,7 +17,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="y35-Ys-YAy">
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="y35-Ys-YAy">
                                 <rect key="frame" x="39" y="127" width="691" height="29"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="691" id="gaw-5s-Gw8"/>
@@ -50,7 +50,7 @@
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Change your profile pic" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="614" translatesAutoresizingMaskIntoConstraints="NO" id="tLD-Oz-rgD">
+                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" ambiguous="YES" misplaced="YES" text="Change your profile pic" textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="614" translatesAutoresizingMaskIntoConstraints="NO" id="tLD-Oz-rgD">
                                 <rect key="frame" x="-307" y="363" width="614" height="58"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="58" id="ypQ-tz-2v8"/>
@@ -59,42 +59,7 @@
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gQf-Zf-Twa">
-                                <rect key="frame" x="386" y="177" width="73" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="73" id="44Y-Yt-qh7"/>
-                                    <constraint firstAttribute="height" constant="44" id="LgO-8A-rZ9"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="public">
-                                    <color key="titleColor" red="0.38039219379425049" green="0.64313727617263794" blue="0.22352942824363708" alpha="1" colorSpace="deviceRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="setAudioToPublic:" destination="uRa-BJ-VTC" eventType="touchUpInside" id="81L-OW-J5X"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nMO-1f-lzI">
-                                <rect key="frame" x="457" y="177" width="73" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="73" id="8EE-hm-7gv"/>
-                                    <constraint firstAttribute="height" constant="44" id="Shs-nF-PW2"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal" title="private">
-                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="setAudioToPrivate:" destination="uRa-BJ-VTC" eventType="touchUpInside" id="8vi-xo-M4d"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sVe-kW-7se">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sVe-kW-7se">
                                 <rect key="frame" x="398" y="266" width="256" height="256"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="251" id="6vf-Id-jHa"/>
@@ -112,14 +77,7 @@
                                     <action selector="changeProfileImage:" destination="uRa-BJ-VTC" eventType="touchUpInside" id="UzA-vz-20h"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Your profile is" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="GPE-3k-6rV">
-                                <rect key="frame" x="274" y="190" width="93" height="18"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0oD-Uq-NAT">
+                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0oD-Uq-NAT">
                                 <rect key="frame" x="10" y="584" width="749" height="50"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
@@ -149,22 +107,13 @@
                         </subviews>
                         <color key="backgroundColor" red="0.078431372549019607" green="0.078431372549019607" blue="0.078431372549019607" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="gQf-Zf-Twa" secondAttribute="trailing" constant="309" id="3SX-HS-jM6"/>
-                            <constraint firstItem="gQf-Zf-Twa" firstAttribute="top" secondItem="y35-Ys-YAy" secondAttribute="bottom" constant="22" id="3qa-8u-Fre"/>
-                            <constraint firstAttribute="trailing" secondItem="nMO-1f-lzI" secondAttribute="trailing" constant="238" id="As5-xn-7to"/>
                             <constraint firstItem="tLD-Oz-rgD" firstAttribute="leading" secondItem="wRL-XL-DtW" secondAttribute="leading" constant="-307" id="EJu-lU-KCZ"/>
-                            <constraint firstItem="gQf-Zf-Twa" firstAttribute="top" secondItem="wRL-XL-DtW" secondAttribute="top" constant="177" id="Ehy-zG-134"/>
                             <constraint firstItem="KXS-SF-P1Y" firstAttribute="top" secondItem="wRL-XL-DtW" secondAttribute="top" constant="8" id="FXi-XT-Cf6"/>
                             <constraint firstItem="sVe-kW-7se" firstAttribute="top" secondItem="tLD-Oz-rgD" secondAttribute="top" constant="-97" id="LP3-Us-F1M"/>
-                            <constraint firstItem="tLD-Oz-rgD" firstAttribute="trailing" secondItem="GPE-3k-6rV" secondAttribute="trailing" constant="-60" id="Lii-zi-aLx"/>
                             <constraint firstItem="0oD-Uq-NAT" firstAttribute="leading" secondItem="KXS-SF-P1Y" secondAttribute="leading" id="Mdh-nC-cj2"/>
-                            <constraint firstItem="gQf-Zf-Twa" firstAttribute="leading" secondItem="GPE-3k-6rV" secondAttribute="trailing" constant="19" id="Nh4-3b-KO9"/>
                             <constraint firstItem="0oD-Uq-NAT" firstAttribute="centerX" secondItem="y35-Ys-YAy" secondAttribute="centerX" id="XMN-RB-LU9"/>
-                            <constraint firstItem="nMO-1f-lzI" firstAttribute="top" secondItem="wRL-XL-DtW" secondAttribute="top" constant="177" id="aGr-tT-kPR"/>
                             <constraint firstItem="0oD-Uq-NAT" firstAttribute="top" secondItem="tLD-Oz-rgD" secondAttribute="bottom" constant="163" id="cXe-U9-aIC"/>
-                            <constraint firstItem="sVe-kW-7se" firstAttribute="top" secondItem="gQf-Zf-Twa" secondAttribute="bottom" constant="45" id="dzo-6h-x8V"/>
                             <constraint firstItem="KXS-SF-P1Y" firstAttribute="leading" secondItem="wRL-XL-DtW" secondAttribute="leading" constant="10" id="eDX-a7-cs2"/>
-                            <constraint firstItem="tLD-Oz-rgD" firstAttribute="top" secondItem="GPE-3k-6rV" secondAttribute="bottom" constant="155" id="gUk-yj-Ty0"/>
                             <constraint firstAttribute="trailing" secondItem="sVe-kW-7se" secondAttribute="trailing" constant="114" id="mL7-8n-cT8"/>
                             <constraint firstItem="0oD-Uq-NAT" firstAttribute="leading" secondItem="FJC-Xv-VMJ" secondAttribute="leading" id="r7g-Na-BHd"/>
                             <constraint firstItem="0oD-Uq-NAT" firstAttribute="centerX" secondItem="wRL-XL-DtW" secondAttribute="centerX" id="yd5-4c-3O2"/>
@@ -175,9 +124,7 @@
                         <outlet property="gpsIntervalControl" destination="y35-Ys-YAy" id="Ye5-Yr-w5k"/>
                         <outlet property="gpsIntervalSelector" destination="y35-Ys-YAy" id="2Qv-2t-9fq"/>
                         <outlet property="loginLogoutButton" destination="0oD-Uq-NAT" id="jxS-5v-i5G"/>
-                        <outlet property="privateAudioB" destination="nMO-1f-lzI" id="pum-Yb-lqr"/>
                         <outlet property="profileImageThumb" destination="sVe-kW-7se" id="UiL-hO-8rn"/>
-                        <outlet property="publicAudioB" destination="gQf-Zf-Twa" id="RZj-7u-JDX"/>
                         <segue destination="csx-DX-nNp" kind="modal" identifier="ShowLoginScreen" id="K4l-5b-770"/>
                     </connections>
                 </viewController>

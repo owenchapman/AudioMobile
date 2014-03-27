@@ -477,9 +477,12 @@
   
     [picker addAttachmentData:[NSData dataWithContentsOfFile:imageFilePath] mimeType:@"image/jpeg" fileName:@"image.jpg"];
     
-    [picker addAttachmentData:[NSData dataWithContentsOfFile:audioFilePath] mimeType:@"audio/ogg" fileName:@"audio.ogg"];
+    AudioNode1* offlineNode = [[AudioMobileAppDelegate sharedInstance] getOfflineNodeAtIndex:[self offlineNodeIndex]];
     
-    NSString *emailBody = @"Here is some audio I recorded using AudioMobile, encoded as an <a href=\"http://www.vorbis.com/\">ogg vorbis</a> file. <p>For more details on the AudioMobile project and to download our free iOS recording app, visit <a href=\"http://audio-mobile.org\">audio-mobile.org</a>.";
+    [picker addAttachmentData:[NSData dataWithContentsOfFile:audioFilePath] mimeType:@"audio/ogg" fileName:[NSString stringWithFormat:@"%@.ogg",[offlineNode title]?[offlineNode title]:@"audio"]];
+    
+    
+    NSString *emailBody = [NSString stringWithFormat:@"Here is some audio I recorded using AudioMobile, encoded as an <a href=\"http://www.vorbis.com/\">ogg vorbis</a> file. <p>For more details on the AudioMobile project and to download our free iOS recording app, visit <a href=\"http://audio-mobile.org\">audio-mobile.org</a>.<P>Title: %@<P>Notes: %@<P>Location: %@<P>GPS Coordinates: %@, %@<P>Weather: %@",[offlineNode title]?[offlineNode title]:@"",[offlineNode notes]?[offlineNode notes]:@"",[offlineNode locationDescription]?[offlineNode locationDescription]:@"",[offlineNode longitude],[offlineNode latitude],[((NSDictionary*)[[self segmentToWeatherMap] objectAtIndex:[[self weatherControl] selectedSegmentIndex]]) objectForKey:@"name"]];
     [picker setMessageBody:emailBody isHTML:YES];
     if ([[self titleTextField] text] && [[[self titleTextField] text] length]>0) {
         [picker setSubject:[NSString stringWithFormat:@"'%@' Audio recording from AudioMobile",[[self titleTextField] text]]];
