@@ -264,6 +264,11 @@
     [[AudioMobileRestAPIManager sharedInstance] uploadProfilePic:jpegData notify:self];
     
     [self dismissViewControllerAnimated:YES completion:NULL];
+    UIActivityIndicatorView* actInd = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    [self setActInd:actInd];
+    [[self view] addSubview:actInd];
+    [actInd startAnimating];
+    
 }
 
 -(void) uploadCompletedWithResult:(AMUPLOADSTATUS)uploadStatus {
@@ -279,6 +284,8 @@
                                               otherButtonTitles:nil];
         [alert show];
     }
+    [[self actInd] removeFromSuperview];
+    [self setActInd:nil];
 }
 
 - (IBAction)gpsIntervalControlAction:(id)sender {
