@@ -250,16 +250,19 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
+    if (!image) return; //no image selected, so abort upload
     
     NSURL* newImageURL = [AudioMobileAppDelegate generateUniqueFileURLWithPrefix:@"ProfileImage" andExtension:@"jpg"];
     
     NSData* jpegData = UIImageJPEGRepresentation([AudioMobileAppDelegate fixrotation:image], 0.25);
 //    [jpegData writeToFile:[newImageURL path] atomically:YES];
     
-    [[AudioMobileRestAPIManager sharedInstance] uploadProfilePic:jpegData notify:self];
-    
     //record a copy of the profile pic, so we can use it later to update this view
     [self setUploadedProfilePicRef:image];
+    
+    
+    [[AudioMobileRestAPIManager sharedInstance] uploadProfilePic:jpegData notify:self];
+    
     [self dismissViewControllerAnimated:YES completion:NULL];
 }
 

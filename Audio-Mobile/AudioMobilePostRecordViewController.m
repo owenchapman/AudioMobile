@@ -5,6 +5,7 @@
 //
 
 #import "AudioMobilePostRecordViewController.h"
+#import "AudioMobileLocationRepositioningViewController.h"
 
 @interface AudioMobilePostRecordViewController ()
 
@@ -338,6 +339,7 @@
         AudioMobilePlaybackViewController* destViewController = segue.destinationViewController;
         [destViewController setNodeImage:nodeMainImage];
         
+        
         // Save image.
         [destViewController setNodeImage:[self displayImage]];
         
@@ -356,6 +358,11 @@
         
         [destViewController setItemInfo:infoDict];
         [destViewController setTitle:[[self titleTextField] text]];
+    }
+    else if ([segue.identifier isEqualToString:@"DetailsToReposition"]) {
+        AudioMobileLocationRepositioningViewController* destViewController = segue.destinationViewController;
+        [destViewController setOfflineItemIndex:[self offlineNodeIndex]];
+        
     }
 }
 

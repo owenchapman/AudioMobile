@@ -101,12 +101,12 @@ bool doLog = false;
     
     NSString* requestURL = [restEndpoint stringByAppendingString:[NSString stringWithFormat:@"user/%ld",(long)[self uid]]];
     
-    NSLog(@"Request url to server is %@",requestURL);
+//    NSLog(@"Request url to server is %@",requestURL);
     
     
     NSMutableURLRequest* request = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:requestURL]];
     
-    [request setHTTPMethod:@"POST"];
+    [request setHTTPMethod:@"PUT"];
     [request setValue:@"application/x-www-form-urlencoded; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [request setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [self setCsrfTokenOn:request];
@@ -114,8 +114,9 @@ bool doLog = false;
     
 
     
-    NSDictionary* postDataDict0 = @{@"current_pass": [[AudioMobileAppDelegate sharedInstance] getSavedPassword] ,
-                                    @"field_userdata_image[und][0][fid]":[imageFileInfo objectForKey:@"fid"],
+    NSDictionary* postDataDict0 = @{@"current_pass":[NSString stringWithFormat:@"%@",[[AudioMobileAppDelegate sharedInstance] getSavedPassword]]  ,
+                                    @"field_userdata_image[und][0][fid]":[NSString stringWithFormat:@"%@",[imageFileInfo objectForKey:@"fid"]],
+                                    @"field_userdata_image[und][0][uri]":[NSString stringWithFormat:@"http://audio-mobile.org/rest/file/%@",[imageFileInfo objectForKey:@"fid"]],
                                     };
     //TODO consider padding month and day fields, in case they are expected by drupal to be two character values.
     NSMutableDictionary* postDataDict = [[NSMutableDictionary alloc] initWithDictionary:postDataDict0];
@@ -156,14 +157,14 @@ bool doLog = false;
             return;
         }
         NSString* postJsonString = [[NSString alloc] initWithData:postData encoding:NSUTF8StringEncoding];
-        NSLog(@"postData json is %@",postJsonString);
+//        NSLog(@"postData json is %@",postJsonString);
         postData = [[postJsonString urlEncodeUsingEncoding:NSUTF8StringEncoding] dataUsingEncoding:NSUTF8StringEncoding];
     }
     
-    NSLog(@"Here is the post data for our node post attempt: %@",postDataDict);
-    [request setHTTPMethod:@"POST"];
+//    NSLog(@"Here is the post data for our node post attempt: %@",postDataDict);
+    [request setHTTPMethod:@"PUT"];
     
-    NSLog(@"Here is the url encoded post data for our profile pic upload attempt: %@",[[NSString alloc] initWithData:postData encoding:NSUTF8StringEncoding]);
+//    NSLog(@"Here is the url encoded post data for our profile pic upload attempt: %@",[[NSString alloc] initWithData:postData encoding:NSUTF8StringEncoding]);
     [request setValue:[NSString stringWithFormat:@"%lu", (unsigned long)postData.length] forHTTPHeaderField:@"Content-Length"];
     [request setHTTPBody:postData];
     
@@ -178,7 +179,7 @@ bool doLog = false;
         
     }
     else {
-        NSLog(@"Response data from node post was: %@, and response status code was %ld",[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding],(long)[((NSHTTPURLResponse*) response) statusCode]);
+//        NSLog(@"Response data from node post was: %@, and response status code was %ld",[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding],(long)[((NSHTTPURLResponse*) response) statusCode]);
     }
     error = nil;
     NSDictionary* responseDict = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:&error];
@@ -190,7 +191,7 @@ bool doLog = false;
     }
     NSLog(@"json response was %@",responseDict);
     
-    if (![responseDict objectForKey:@"nid"]) {
+    if (![responseDict objectForKey:@"field_userdata_image"]) {
         NSLog(@"ERROR:  Failed to upload node, server returned invalid response;  expected 'nid' field, but found none");
         if (responder) [responder uploadCompletedWithResult:AMUPLOADFAIL];
         return ;
@@ -289,7 +290,7 @@ bool doLog = false;
     
     [subsequentLocationsPostValue appendString:@")"];
     
-    NSLog(@"uploading seriallocation data %@", subsequentLocationsPostValue);
+//    NSLog(@"uploading seriallocation data %@", subsequentLocationsPostValue);
     
     NSDictionary* postDataDict0 = @{@"type": @"audio_node",
                                    @"language":@"und",
@@ -378,7 +379,7 @@ bool doLog = false;
             return;
         }
         NSString* postJsonString = [[NSString alloc] initWithData:postData encoding:NSUTF8StringEncoding];
-        NSLog(@"postData json is %@",postJsonString);
+//        NSLog(@"postData json is %@",postJsonString);
         postData = [[postJsonString urlEncodeUsingEncoding:NSUTF8StringEncoding] dataUsingEncoding:NSUTF8StringEncoding];
     }
     
@@ -400,7 +401,7 @@ bool doLog = false;
         
     }
     else {
-        NSLog(@"Response data from node post was: %@, and response status code was %d",[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding],[((NSHTTPURLResponse*) response) statusCode]);
+//        NSLog(@"Response data from node post was: %@, and response status code was %d",[[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding],[((NSHTTPURLResponse*) response) statusCode]);
     }
     error = nil;
     NSDictionary* responseDict = [NSJSONSerialization JSONObjectWithData:responseData options:kNilOptions error:error];
@@ -410,7 +411,7 @@ bool doLog = false;
         if (responder) [responder uploadCompletedWithResult:AMUPLOADFAIL];
         return ;
     }
-    NSLog(@"json response was %@",responseDict);
+//    NSLog(@"json response was %@",responseDict);
     
     if (![responseDict objectForKey:@"nid"]) {
         NSLog(@"ERROR:  Failed to upload node, server returned invalid response;  expected 'nid' field, but found none");
