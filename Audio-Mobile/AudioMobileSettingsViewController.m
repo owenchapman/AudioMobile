@@ -250,6 +250,14 @@
 
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info {
     UIImage *image = [info valueForKey:UIImagePickerControllerOriginalImage];
+    
+    [self dismissViewControllerAnimated:YES completion:NULL];
+    UIActivityIndicatorView* actInd = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
+    [self setActInd:actInd];
+    [[self view] addSubview:actInd];
+    [actInd startAnimating];
+    
+    
     if (!image) return; //no image selected, so abort upload
     
     NSURL* newImageURL = [AudioMobileAppDelegate generateUniqueFileURLWithPrefix:@"ProfileImage" andExtension:@"jpg"];
@@ -263,11 +271,7 @@
     
     [[AudioMobileRestAPIManager sharedInstance] uploadProfilePic:jpegData notify:self];
     
-    [self dismissViewControllerAnimated:YES completion:NULL];
-    UIActivityIndicatorView* actInd = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
-    [self setActInd:actInd];
-    [[self view] addSubview:actInd];
-    [actInd startAnimating];
+
     
 }
 
