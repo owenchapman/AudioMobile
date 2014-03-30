@@ -482,7 +482,28 @@
     [picker addAttachmentData:[NSData dataWithContentsOfFile:audioFilePath] mimeType:@"audio/ogg" fileName:[NSString stringWithFormat:@"%@.ogg",[offlineNode title]?[offlineNode title]:@"audio"]];
     
     
-    NSString *emailBody = [NSString stringWithFormat:@"Here is some audio I recorded using AudioMobile, encoded as an <a href=\"http://www.vorbis.com/\">ogg vorbis</a> file. <p>For more details on the AudioMobile project and to download our free iOS recording app, visit <a href=\"http://audio-mobile.org\">audio-mobile.org</a>.<P>Title: %@<P>Notes: %@<P>Location: %@<P>GPS Coordinates: %@, %@<P>Weather: %@",[offlineNode title]?[offlineNode title]:@"",[offlineNode notes]?[offlineNode notes]:@"",[offlineNode locationDescription]?[offlineNode locationDescription]:@"",[offlineNode longitude],[offlineNode latitude],[((NSDictionary*)[[self segmentToWeatherMap] objectAtIndex:[[self weatherControl] selectedSegmentIndex]]) objectForKey:@"name"]];
+    NSString* subsequentLocationsEntry;
+    
+    if ([[offlineNode subsequentLocations] count]>0) {
+        
+        NSMutableString* subl = [[NSMutableString alloc] init];
+        [subl appendString:[NSString stringWithFormat:@"<P>Subsequent GPS:"]];
+        bool firstIter = true;
+        for(LocationVisit* lv in [offlineNode subsequentLocations]) {
+            if (!firstIter) [subl appendString:@","];
+            [subl appendString:[NSString stringWithFormat:@" %@,%@",[lv longitude],[lv latitude]] ];
+            firstIter = false;
+        }
+//        [subl appendString:@","];
+        subsequentLocationsEntry = subl;
+    }
+    else {
+         subsequentLocationsEntry = @"";
+    }
+    
+    
+    
+    NSString *emailBody = [NSString stringWithFormat:@"Here is some audio I recorded using AudioMobile, encoded as an <a href=\"http://www.vorbis.com/\">ogg vorbis</a> file. <p>For more details on the AudioMobile project and to download our free iOS recording app, visit <a href=\"http://audio-mobile.org\">audio-mobile.org</a>.<P>Title: %@<P>Date: %@<P>Notes: %@<P>Location: %@<P>GPS Coordinates: %@, %@ %@<P>Weather: %@",[offlineNode title]?[offlineNode title]:@"",[offlineNode date],[offlineNode notes]?[offlineNode notes]:@"",[offlineNode locationDescription]?[offlineNode locationDescription]:@"",[offlineNode longitude],[offlineNode latitude],subsequentLocationsEntry,[((NSDictionary*)[[self segmentToWeatherMap] objectAtIndex:[[self weatherControl] selectedSegmentIndex]]) objectForKey:@"name"]];
     [picker setMessageBody:emailBody isHTML:YES];
     if ([[self titleTextField] text] && [[[self titleTextField] text] length]>0) {
         [picker setSubject:[NSString stringWithFormat:@"'%@' Audio recording from AudioMobile",[[self titleTextField] text]]];
