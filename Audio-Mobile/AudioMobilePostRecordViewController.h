@@ -15,7 +15,7 @@
 
 #import <CoreLocation/CoreLocation.h>
 
-@interface AudioMobilePostRecordViewController : UIViewController<UITextFieldDelegate,AudioMobileOggVorbisEncoderDelegate,AudioMobileRestAsyncResponseNotifier, UIAlertViewDelegate, UIImagePickerControllerDelegate>
+@interface AudioMobilePostRecordViewController : UIViewController<UITextFieldDelegate,AudioMobileOggVorbisEncoderDelegate,AudioMobileRestAsyncResponseNotifier, UIAlertViewDelegate, UIImagePickerControllerDelegate,MFMailComposeViewControllerDelegate>
 
 @property (weak, nonatomic) IBOutlet UIImageView *displayImageView;
 @property (strong, nonatomic) UIImage* displayImage;

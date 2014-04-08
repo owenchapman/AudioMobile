@@ -12,7 +12,10 @@
 #import "AFNetworking.h"
 #import "Reachability.h"
 
-@interface AudioMobilePlaybackViewController : UIViewController<IDZAudioPlayerDelegate> {
+#import <MessageUI/MessageUI.h>
+
+
+@interface AudioMobilePlaybackViewController : UIViewController<IDZAudioPlayerDelegate,MFMailComposeViewControllerDelegate> {
     Reachability* internetReachable;
 }
 
@@ -30,6 +33,7 @@
 
 @property (weak, nonatomic) IBOutlet UIButton *playPauseButton;
 @property (weak, nonatomic) IBOutlet UIButton *heartButton;
+@property (weak, nonatomic) IBOutlet UIButton *flagOffensiveButton;
 @property (nonatomic) bool isLiked;
 @property ( nonatomic) bool isPlaying;
 

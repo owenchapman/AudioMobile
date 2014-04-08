@@ -908,7 +908,7 @@
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="creator name" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IJy-jl-lsg">
-                                <rect key="frame" x="205" y="93" width="440" height="21"/>
+                                <rect key="frame" x="205" y="93" width="420" height="21"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.79215693473815918" green="0.79215693473815918" blue="0.79215693473815918" alpha="1" colorSpace="deviceRGB"/>
@@ -923,7 +923,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2VL-s8-geY">
-                                <rect key="frame" x="661" y="86" width="41" height="37"/>
+                                <rect key="frame" x="627" y="86" width="41" height="37"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="Play.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -933,13 +933,23 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UWp-sh-YSA">
-                                <rect key="frame" x="710" y="88" width="38" height="32"/>
+                                <rect key="frame" x="676" y="88" width="38" height="32"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" image="Heart.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="heartPressed:" destination="3Ba-8Q-Hcu" eventType="touchUpInside" id="uuC-vk-XXI"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="spM-Xs-btA">
+                                <rect key="frame" x="727" y="89" width="32" height="32"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="Warning.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="flagOffensiveButtonAction:" destination="3Ba-8Q-Hcu" eventType="touchUpInside" id="wR2-4g-yFP"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -949,6 +959,7 @@
                     <connections>
                         <outlet property="creatorNameLabel" destination="IJy-jl-lsg" id="LOV-qv-z2u"/>
                         <outlet property="creatorThumbnailView" destination="feL-ik-BAs" id="QQh-My-BaI"/>
+                        <outlet property="flagOffensiveButton" destination="spM-Xs-btA" id="drA-8c-vvd"/>
                         <outlet property="heartButton" destination="UWp-sh-YSA" id="h3c-rc-6zt"/>
                         <outlet property="nodeImageView" destination="Sb2-n8-Cpi" id="muj-CC-c7v"/>
                         <outlet property="playPauseButton" destination="2VL-s8-geY" id="Knf-1H-UyT"/>
@@ -1413,6 +1424,7 @@
         <image name="Sunny.png" width="120" height="120"/>
         <image name="TakePic.png" width="32" height="32"/>
         <image name="UserLibrary.png" width="32" height="32"/>
+        <image name="Warning.png" width="32" height="32"/>
         <image name="Windy.png" width="120" height="120"/>
         <image name="record.png" width="32" height="32"/>
         <image name="star.png" width="26" height="26"/>

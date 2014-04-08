@@ -100,6 +100,11 @@ NSString* oggPlaybackFilename = @"currentPlaybackSelection.ogg";
         }
         if ([[self itemInfo] objectForKey:@"isPreview"]) {
             [[self heartButton] setEnabled:false];
+            [[self flagOffensiveButton] setEnabled:false];
+            [[self flagOffensiveButton] setHidden:true];
+        }
+        else {
+            
         }
     }
     
@@ -215,6 +220,35 @@ NSString* oggPlaybackFilename = @"currentPlaybackSelection.ogg";
         //update state on server
         [[AudioMobileRestAPIManager sharedInstance] likeNode:[[self itemInfo] objectForKey:@"nid"] doLike:true];
     }
+    
+}
+
+-(void)displayComposerSheet
+{
+    MFMailComposeViewController *picker = [[MFMailComposeViewController alloc] init];
+    picker.mailComposeDelegate = self;
+    
+    
+    NSString* nodeURL = [NSString stringWithFormat:@"http://audio-mobile.org/node/%@",[[self itemInfo] objectForKey:@"nid"]];
+    NSString *emailBody = [NSString stringWithFormat:@"I found the content of this recording to be objectionable:<P><P><A href='%@'>%@</a><P>Because it contained: <P>&lt;Please describe the problem here&gt; ",nodeURL,nodeURL];
+    [picker setMessageBody:emailBody isHTML:YES];
+    
+    [picker setSubject:@"AudioMobile recording contains objectionable content"];
+    
+    [self presentViewController:picker
+                       animated:YES
+                     completion:NULL];
+    [picker setToRecipients:@[@"webmaster@audio-mobile.org"]];
+}
+
+- (void)mailComposeController:(MFMailComposeViewController *)controller didFinishWithResult:(MFMailComposeResult)result error:(NSError *)error{
+    NSLog(@"Mail composer result was %d",result);
+    [self dismissViewControllerAnimated:true completion:nil];
+}
+
+- (IBAction)flagOffensiveButtonAction:(id)sender {
+    
+    [self displayComposerSheet];
     
 }
 - (IBAction)playPausePressed:(id)sender {
