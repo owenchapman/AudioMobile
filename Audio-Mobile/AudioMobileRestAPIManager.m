@@ -275,7 +275,7 @@ bool doLog = false;
 
 //    subsequentLocationsPostValue appendFormat:@"field_geodata_linestring[und][0][wkt]"
     [subsequentLocationsPostValue appendFormat:@"LINESTRING ("];
-    [subsequentLocationsPostValue appendString:[NSString stringWithFormat:@"%f %f",geodata.latitude,geodata.longitude]];
+    [subsequentLocationsPostValue appendString:[NSString stringWithFormat:@"%f %f",geodata.longitude,geodata.latitude]];
     
      NSSortDescriptor * sortByDate =
      [[NSSortDescriptor alloc] initWithKey:@"timeVisited" ascending:YES];
@@ -302,7 +302,7 @@ bool doLog = false;
                                    @"field_audionode_image[und][0][fid]":imageID,
 //                                   @"field_geodata_linestring[und][0][wkt]":subsequentLocationsPostValue,
                                    @"field_geodata_linestring[und][0][geo_type]":@"linestring",
-                                   @"field_geodata[und][0][wkt]":[NSString stringWithFormat:@"Point (%f,%f)",geodata.latitude,geodata.longitude],
+                                   @"field_geodata[und][0][wkt]":[NSString stringWithFormat:@"Point (%f,%f)",geodata.longitude,geodata.latitude],
                                    @"field_geodata[und][0][geo_type]":@"point",
                                    @"field_geodata[und][0][lon]":[NSString stringWithFormat:@"%f",geodata.longitude],
                                    @"field_geodata[und][0][lat]":[NSString stringWithFormat:@"%f",geodata.latitude],
