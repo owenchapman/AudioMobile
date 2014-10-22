@@ -295,6 +295,10 @@ NSString* wavRecordingFileName = @"wavRecording.wav";
     if (!_locationManager)
     {
         [self setLocationManager:[[CLLocationManager alloc] init]];
+        if ([[self locationManager] respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+//            [[self locationManager] requestWhenInUseAuthorization]; //required for ios8+ in order to retrieve
+            [[self locationManager] performSelector:@selector(requestWhenInUseAuthorization) withObject:nil];
+        }
         [self locationManager].desiredAccuracy = kCLLocationAccuracyBest;
         [_locationManager setDelegate:self];
         _locationManager.distanceFilter = 10.0f; // we don't need to be any more accurate than 10m
@@ -318,7 +322,10 @@ NSString* wavRecordingFileName = @"wavRecording.wav";
     if (!_locationManager)
     {
         [self setLocationManager:[[CLLocationManager alloc] init]];
-        
+        if ([[self locationManager] respondsToSelector:@selector(requestWhenInUseAuthorization)]) {
+            //            [[self locationManager] requestWhenInUseAuthorization]; //required for ios8+ in order to retrieve
+            [[self locationManager] performSelector:@selector(requestWhenInUseAuthorization) withObject:nil];
+        }
         [_locationManager setDelegate:self];
         _locationManager.distanceFilter = 10.0f; // we don't need to be any more accurate than 10m
         _locationManager.purpose = @"To show nearby nodes and to tag your posts with location information";
