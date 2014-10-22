@@ -1,6 +1,6 @@
 // UIImageView+AFNetworking.m
 //
-// Copyright (c) 2013 AFNetworking (http://afnetworking.com)
+// Copyright (c) 2013-2014 AFNetworking (http://afnetworking.com)
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -28,16 +28,10 @@
 
 #import "AFHTTPRequestOperation.h"
 
-@interface AFImageCache : NSCache
-- (UIImage *)cachedImageForRequest:(NSURLRequest *)request;
-- (void)cacheImage:(UIImage *)image
-        forRequest:(NSURLRequest *)request;
+@interface AFImageCache : NSCache <AFImageCache>
 @end
 
 #pragma mark -
-
-static char kAFImageRequestOperationKey;
-static char kAFResponseSerializerKey;
 
 @interface UIImageView (_AFNetworking)
 @property (readwrite, nonatomic, strong, setter = af_setImageRequestOperation:) AFHTTPRequestOperation *af_imageRequestOperation;
@@ -56,26 +50,12 @@ static char kAFResponseSerializerKey;
     return _af_sharedImageRequestOperationQueue;
 }
 
-+ (AFImageCache *)af_sharedImageCache {
-    static AFImageCache *_af_imageCache = nil;
-    static dispatch_once_t oncePredicate;
-    dispatch_once(&oncePredicate, ^{
-        _af_imageCache = [[AFImageCache alloc] init];
-
-        [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidReceiveMemoryWarningNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * __unused notification) {
-            [_af_imageCache removeAllObjects];
-        }];
-    });
-
-    return _af_imageCache;
-}
-
 - (AFHTTPRequestOperation *)af_imageRequestOperation {
-    return (AFHTTPRequestOperation *)objc_getAssociatedObject(self, &kAFImageRequestOperationKey);
+    return (AFHTTPRequestOperation *)objc_getAssociatedObject(self, @selector(af_imageRequestOperation));
 }
 
 - (void)af_setImageRequestOperation:(AFHTTPRequestOperation *)imageRequestOperation {
-    objc_setAssociatedObject(self, &kAFImageRequestOperationKey, imageRequestOperation, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(af_imageRequestOperation), imageRequestOperation, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 @end
@@ -84,6 +64,29 @@ static char kAFResponseSerializerKey;
 
 @implementation UIImageView (AFNetworking)
 @dynamic imageResponseSerializer;
+
++ (id <AFImageCache>)sharedImageCache {
+    static AFImageCache *_af_defaultImageCache = nil;
+    static dispatch_once_t oncePredicate;
+    dispatch_once(&oncePredicate, ^{
+        _af_defaultImageCache = [[AFImageCache alloc] init];
+
+        [[NSNotificationCenter defaultCenter] addObserverForName:UIApplicationDidReceiveMemoryWarningNotification object:nil queue:[NSOperationQueue mainQueue] usingBlock:^(NSNotification * __unused notification) {
+            [_af_defaultImageCache removeAllObjects];
+        }];
+    });
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wgnu"
+    return objc_getAssociatedObject(self, @selector(sharedImageCache)) ?: _af_defaultImageCache;
+#pragma clang diagnostic pop
+}
+
++ (void)setSharedImageCache:(id <AFImageCache>)imageCache {
+    objc_setAssociatedObject(self, @selector(sharedImageCache), imageCache, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+}
+
+#pragma mark -
 
 - (id <AFURLResponseSerialization>)imageResponseSerializer {
     static id <AFURLResponseSerialization> _af_defaultImageResponseSerializer = nil;
@@ -94,12 +97,12 @@ static char kAFResponseSerializerKey;
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wgnu"
-    return objc_getAssociatedObject(self, &kAFResponseSerializerKey) ?: _af_defaultImageResponseSerializer;
+    return objc_getAssociatedObject(self, @selector(imageResponseSerializer)) ?: _af_defaultImageResponseSerializer;
 #pragma clang diagnostic pop
 }
 
 - (void)setImageResponseSerializer:(id <AFURLResponseSerialization>)serializer {
-    objc_setAssociatedObject(self, &kAFResponseSerializerKey, serializer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    objc_setAssociatedObject(self, @selector(imageResponseSerializer), serializer, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 #pragma mark -
@@ -117,15 +120,6 @@ static char kAFResponseSerializerKey;
     [self setImageWithURLRequest:request placeholderImage:placeholderImage success:nil failure:nil];
 }
 
-- (void)setDesaturatedImageWithURL:(NSURL *)url
-       placeholderImage:(UIImage *)placeholderImage
-{
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
-    [request addValue:@"image/*" forHTTPHeaderField:@"Accept"];
-    
-    [self setDesaturatedImageWithURLRequest:request placeholderImage:placeholderImage success:nil failure:nil];
-}
-
 - (void)setImageWithURLRequest:(NSURLRequest *)urlRequest
               placeholderImage:(UIImage *)placeholderImage
                        success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image))success
@@ -133,7 +127,7 @@ static char kAFResponseSerializerKey;
 {
     [self cancelImageRequestOperation];
 
-    UIImage *cachedImage = [[[self class] af_sharedImageCache] cachedImageForRequest:urlRequest];
+    UIImage *cachedImage = [[[self class] sharedImageCache] cachedImageForRequest:urlRequest];
     if (cachedImage) {
         if (success) {
             success(nil, nil, cachedImage);
@@ -143,144 +137,43 @@ static char kAFResponseSerializerKey;
 
         self.af_imageRequestOperation = nil;
     } else {
-        self.image = placeholderImage;
-
-        __weak __typeof(self)weakSelf = self;
-        self.af_imageRequestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:urlRequest];
-        self.af_imageRequestOperation.responseSerializer = self.imageResponseSerializer;
-        [self.af_imageRequestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
-            __strong __typeof(weakSelf)strongSelf = weakSelf;
-            if ([[urlRequest URL] isEqual:[operation.request URL]]) {
-                if (success) {
-                    success(urlRequest, operation.response, responseObject);
-                } else if (responseObject) {
-                    strongSelf.image = responseObject;
-                }
-            } else {
-                
-            }
-
-            [[[strongSelf class] af_sharedImageCache] cacheImage:responseObject forRequest:urlRequest];
-        } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            if ([[urlRequest URL] isEqual:[operation.response URL]]) {
-                if (failure) {
-                    failure(urlRequest, operation.response, error);
-                }
-            }
-        }];
-
-        [[[self class] af_sharedImageRequestOperationQueue] addOperation:self.af_imageRequestOperation];
-    }
-}
-
-- (void)setDesaturatedImageWithURLRequest:(NSURLRequest *)urlRequest
-              placeholderImage:(UIImage *)placeholderImage
-                       success:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, UIImage *image))success
-                       failure:(void (^)(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error))failure
-{
-    [self cancelImageRequestOperation];
-    
-    UIImage *cachedImage = [[[self class] af_sharedImageCache] cachedImageForRequest:urlRequest];
-    if (cachedImage) {
-        if (success) {
-            success(nil, nil, cachedImage);
-        } else {
-            self.image = cachedImage;
+        if (placeholderImage) {
+            self.image = placeholderImage;
         }
-        
-        self.af_imageRequestOperation = nil;
-    } else {
-        self.image = placeholderImage;
         
         __weak __typeof(self)weakSelf = self;
         self.af_imageRequestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:urlRequest];
         self.af_imageRequestOperation.responseSerializer = self.imageResponseSerializer;
         [self.af_imageRequestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
             __strong __typeof(weakSelf)strongSelf = weakSelf;
-            if ([[urlRequest URL] isEqual:[operation.request URL]]) {
+            if ([[urlRequest URL] isEqual:[strongSelf.af_imageRequestOperation.request URL]]) {
                 if (success) {
                     success(urlRequest, operation.response, responseObject);
                 } else if (responseObject) {
-//                    responseObject = [UIImageView convertToGreyscale:(UIImage*)nil];
                     strongSelf.image = responseObject;
                 }
-            } else {
-                
+
+                if (operation == strongSelf.af_imageRequestOperation){
+                        strongSelf.af_imageRequestOperation = nil;
+                }
             }
-            
-            [[[strongSelf class] af_sharedImageCache] cacheImage:responseObject forRequest:urlRequest];
+
+            [[[strongSelf class] sharedImageCache] cacheImage:responseObject forRequest:urlRequest];
         } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-            if ([[urlRequest URL] isEqual:[operation.response URL]]) {
+            __strong __typeof(weakSelf)strongSelf = weakSelf;
+            if ([[urlRequest URL] isEqual:[strongSelf.af_imageRequestOperation.request URL]]) {
                 if (failure) {
                     failure(urlRequest, operation.response, error);
                 }
+
+                if (operation == strongSelf.af_imageRequestOperation){
+                        strongSelf.af_imageRequestOperation = nil;
+                }
             }
         }];
-        
+
         [[[self class] af_sharedImageRequestOperationQueue] addOperation:self.af_imageRequestOperation];
     }
-}
-
-+  (UIImage *) convertToGreyscale:(UIImage *)i {
-    
-    int kRed = 1;
-    int kGreen = 2;
-    int kBlue = 4;
-    
-    int colors = kGreen;
-    int m_width = i.size.width;
-    int m_height = i.size.height;
-    
-    uint32_t *rgbImage = (uint32_t *) malloc(m_width * m_height * sizeof(uint32_t));
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGContextRef context = CGBitmapContextCreate(rgbImage, m_width, m_height, 8, m_width * 4, colorSpace, kCGBitmapByteOrder32Little | kCGImageAlphaNoneSkipLast);
-    CGContextSetInterpolationQuality(context, kCGInterpolationHigh);
-    CGContextSetShouldAntialias(context, NO);
-    CGContextDrawImage(context, CGRectMake(0, 0, m_width, m_height), [i CGImage]);
-    CGContextRelease(context);
-    CGColorSpaceRelease(colorSpace);
-    
-    // now convert to grayscale
-    uint8_t *m_imageData = (uint8_t *) malloc(m_width * m_height);
-    for(int y = 0; y < m_height; y++) {
-        for(int x = 0; x < m_width; x++) {
-            uint32_t rgbPixel=rgbImage[y*m_width+x];
-            uint32_t sum=0,count=0;
-            if (colors & kRed) {sum += (rgbPixel>>24)&255; count++;}
-            if (colors & kGreen) {sum += (rgbPixel>>16)&255; count++;}
-            if (colors & kBlue) {sum += (rgbPixel>>8)&255; count++;}
-            m_imageData[y*m_width+x]=sum/count;
-        }
-    }
-    free(rgbImage);
-    
-    // convert from a gray scale image back into a UIImage
-    uint8_t *result = (uint8_t *) calloc(m_width * m_height *sizeof(uint32_t), 1);
-    
-    // process the image back to rgb
-    for(int i = 0; i < m_height * m_width; i++) {
-        result[i*4]=0;
-        int val=m_imageData[i];
-        result[i*4+1]=val;
-        result[i*4+2]=val;
-        result[i*4+3]=val;
-    }
-    
-    // create a UIImage
-    colorSpace = CGColorSpaceCreateDeviceRGB();
-    context = CGBitmapContextCreate(result, m_width, m_height, 8, m_width * sizeof(uint32_t), colorSpace, kCGBitmapByteOrder32Little | kCGImageAlphaNoneSkipLast);
-    CGImageRef image = CGBitmapContextCreateImage(context);
-    CGContextRelease(context);
-    CGColorSpaceRelease(colorSpace);
-    UIImage *resultUIImage = [UIImage imageWithCGImage:image];
-    CGImageRelease(image);
-    
-    free(m_imageData);
-    
-    // make sure the data will be released by giving it to an autoreleased NSData
-    [NSData dataWithBytesNoCopy:result length:m_width * m_height];
-    
-    return resultUIImage;
 }
 
 - (void)cancelImageRequestOperation {
