@@ -926,8 +926,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Owen Chapman (PTNQ4QQ36U)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Owen Chapman (PTNQ4QQ36U)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Michael Matan (4YJ4RKXU28)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Michael Matan (4YJ4RKXU28)";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
@@ -942,8 +942,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				ONLY_ACTIVE_ARCH = YES;
-				PROVISIONING_PROFILE = "DA33EFF6-4B7E-459A-8C26-E3E96DB2D991";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DA33EFF6-4B7E-459A-8C26-E3E96DB2D991";
+				PROVISIONING_PROFILE = "56b416e2-cab1-4dc3-af3f-30a3a5ffbd97";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "56b416e2-cab1-4dc3-af3f-30a3a5ffbd97";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -961,8 +961,8 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: Owen Chapman (PTNQ4QQ36U)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Owen Chapman (PTNQ4QQ36U)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Michael Matan (4YJ4RKXU28)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Michael Matan (4YJ4RKXU28)";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -970,8 +970,8 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
-				PROVISIONING_PROFILE = "DA33EFF6-4B7E-459A-8C26-E3E96DB2D991";
-				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DA33EFF6-4B7E-459A-8C26-E3E96DB2D991";
+				PROVISIONING_PROFILE = "56b416e2-cab1-4dc3-af3f-30a3a5ffbd97";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "56b416e2-cab1-4dc3-af3f-30a3a5ffbd97";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -983,6 +983,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Owen Chapman (PTNQ4QQ36U)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Owen Chapman (PTNQ4QQ36U)";
+				DEAD_CODE_STRIPPING = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Audio-Mobile/frameworks\"",
@@ -993,6 +994,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "DA33EFF6-4B7E-459A-8C26-E3E96DB2D991";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "DA33EFF6-4B7E-459A-8C26-E3E96DB2D991";
+				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
@@ -1004,6 +1006,7 @@
 			buildSettings = {
 				CODE_SIGN_IDENTITY = "iPhone Distribution: Owen Chapman (PTNQ4QQ36U)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Owen Chapman (PTNQ4QQ36U)";
+				DEAD_CODE_STRIPPING = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/Audio-Mobile/frameworks\"",
@@ -1013,6 +1016,7 @@
 				INFOPLIST_FILE = "Audio-Mobile/Audio-Mobile-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "DA33EFF6-4B7E-459A-8C26-E3E96DB2D991";
+				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				WRAPPER_EXTENSION = app;
