@@ -669,6 +669,7 @@ bool doLog = false;
     NSData* followedUserList = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&err];
     if (err) {
         NSLog(@"Failed to retrieve list of users followed by user due to error: %@",err);
+        return @[];
     }
     NSLog(@"Retrieved the following list of users followed by user: %@",[[NSString alloc] initWithData:followedUserList encoding:NSUTF8StringEncoding]);
     NSArray* userList = [NSJSONSerialization JSONObjectWithData:followedUserList options:kNilOptions error:&err];
